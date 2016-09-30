@@ -3,15 +3,56 @@ syntax = "proto3";
 package net.gurigoro.kaiji;
 
 service Kaiji{
+  // Ping
   rpc Ping (PingRequest) returns (PingReply){}
+  // Client Login/Logout
+  rpc ClientLogin (ClientLoginRequest) returns (ClientLoginReply){}
+  rpc ClientLogout (ClientLoginRequest) returns (ClientLogoutReply){}
+  rpc ClientChangeStatus (ClientChangeStatusRequest) returns (ClientChangeStatusReply){}
+
+}
+
+enum LoginStatus {
+  NONE = 0;
+  OFFLINE = 1;
+  ONLINE = 2;
+  GAMING = 3;
+  ERROR = 4;
+}
+
+message ClientLoginRequest{
+  string accessKey = 1;
+  LoginStatus loginStatus = 2;
+}
+
+message ClientLoginReply{
+  bool isSucceed = 1;
+  string accessToken = 2;
+}
+
+message ClientChangeStatusRequest{
+  string accessToken = 1;
+  LoginStatus loginStatus = 2;
+}
+
+message ClientChangeStatusReply{
+  bool isSucceed = 1;
+}
+
+message ClientLogoutRequest{
+  string accessToken = 1;
+}
+
+message ClientLogoutReply{
+  bool isSucceed  = 1;
 }
 
 message PingRequest{
   string message = 1;
-  int64 unixTime = 2;
+  int64 time = 2;
 }
 
 message PingReply{
   string message = 1;
-  int64 unixTime = 2;
+  int64 time = 2;
 }
