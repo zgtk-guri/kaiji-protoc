@@ -81,6 +81,7 @@ message AddUserRequest{
   string accessToken = 1;
   int userId = 2;
   string name = 3;
+//  string twitter = 6;
   bool isAvailable = 4;
   bool isAnonymous = 5;
 }
