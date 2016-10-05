@@ -13,7 +13,7 @@ service Kaiji{
   // Users
   rpc GetUserById (GetUserByIdRequest) returns (GetUserReply){}
   rpc AddUser (AddUserRequest) returns (AddUserReply){}
-
+  rpc ModifyUser (ModifyUserRequest) returns (AddUserReply) {}
 }
 
 enum LoginStatus {
@@ -87,6 +87,20 @@ message AddUserRequest{
 }
 
 message AddUserReply{
+  bool isSucceed = 1;
+  int userId = 2;
+}
+
+message ModifyUserRequest{
+  string accessToken = 1;
+  int userId = 2;
+  string name = 3;
+//  string twitter = 4;
+  bool isAvailable = 4;
+  bool isAnonymous = 5;
+}
+
+message ModifyUserReply{
   bool isSucceed = 1;
   int userId = 2;
 }
