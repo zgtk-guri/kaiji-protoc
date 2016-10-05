@@ -10,6 +10,8 @@ service Kaiji{
   rpc ClientLogout (ClientLoginRequest) returns (ClientLogoutReply){}
   rpc ClientChangeStatus (ClientChangeStatusRequest) returns (ClientChangeStatusReply){}
 
+  // Users
+  rpc GetUserById (GetUserByIdRequest) returns (GetUserReply){}
 }
 
 enum LoginStatus {
@@ -55,4 +57,20 @@ message PingRequest{
 message PingReply{
   string message = 1;
   int64 time = 2;
+}
+
+message GetUserByIdRequest{
+  string accessToken = 1;
+  int userId = 2;
+}
+
+message GetUserReply{
+  bool isFound = 1;
+  int userId = 2;
+  string name = 3;
+  int coin = 4;
+//  string twitter = 5;
+  bool isAvailable = 5;
+  bool isAnonymous = 6;
+  int continueCount = 7;
 }
