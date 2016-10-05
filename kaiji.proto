@@ -5,11 +5,12 @@ package net.gurigoro.kaiji;
 service Kaiji{
   // Ping
   rpc Ping (PingRequest) returns (PingReply);
+  // Logging
+  rpc Log (LogRequest) returns (Empty);
   // Client Login/Logout
   rpc ClientLogin (ClientLoginRequest) returns (ClientLoginReply);
   rpc ClientLogout (ClientLoginRequest) returns (ClientLogoutReply);
   rpc ClientChangeStatus (ClientChangeStatusRequest) returns (ClientChangeStatusReply);
-
   // Users
   rpc GetUserById (GetUserByIdRequest) returns (GetUserReply);
   rpc AddUser (AddUserRequest) returns (AddUserReply);
@@ -22,6 +23,15 @@ enum LoginStatus {
   ONLINE = 2;
   GAMING = 3;
   ERROR = 4;
+}
+
+enum LogLevel{
+  TRACE = 0;
+  DEBUG = 2;
+  INFO = 3;
+  WARN = 4;
+  ERROR = 5;
+  FATAL = 6;
 }
 
 message ClientLoginRequest{
@@ -59,6 +69,18 @@ message PingRequest{
 message PingReply{
   string message = 1;
   int64 time = 2;
+}
+
+message LogRequest{
+  string accessKey = 1;
+  int unixTime = 2;
+  LogLevel LogLevel = 3;
+  int userId = 4;
+  string text = 5;
+}
+
+message Empty{
+  // Empty
 }
 
 message GetUserByIdRequest{
