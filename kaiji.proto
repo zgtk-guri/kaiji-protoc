@@ -4,16 +4,16 @@ package net.gurigoro.kaiji;
 
 service Kaiji{
   // Ping
-  rpc Ping (PingRequest) returns (PingReply){}
+  rpc Ping (PingRequest) returns (PingReply);
   // Client Login/Logout
-  rpc ClientLogin (ClientLoginRequest) returns (ClientLoginReply){}
-  rpc ClientLogout (ClientLoginRequest) returns (ClientLogoutReply){}
-  rpc ClientChangeStatus (ClientChangeStatusRequest) returns (ClientChangeStatusReply){}
+  rpc ClientLogin (ClientLoginRequest) returns (ClientLoginReply);
+  rpc ClientLogout (ClientLoginRequest) returns (ClientLogoutReply);
+  rpc ClientChangeStatus (ClientChangeStatusRequest) returns (ClientChangeStatusReply);
 
   // Users
-  rpc GetUserById (GetUserByIdRequest) returns (GetUserReply){}
-  rpc AddUser (AddUserRequest) returns (AddUserReply){}
-  rpc ModifyUser (ModifyUserRequest) returns (AddUserReply) {}
+  rpc GetUserById (GetUserByIdRequest) returns (GetUserReply);
+  rpc AddUser (AddUserRequest) returns (AddUserReply);
+  rpc ModifyUser (ModifyUserRequest) returns (AddUserReply);
 }
 
 enum LoginStatus {
