@@ -93,7 +93,6 @@ message GetUserReply{
   int userId = 2;
   string name = 3;
   int coin = 4;
-//  string twitter = 5;
   bool isAvailable = 5;
   bool isAnonymous = 6;
   int continueCount = 7;
@@ -103,7 +102,6 @@ message AddUserRequest{
   string accessToken = 1;
   int userId = 2;
   string name = 3;
-//  string twitter = 6;
   bool isAvailable = 4;
   bool isAnonymous = 5;
 }
@@ -117,7 +115,6 @@ message ModifyUserRequest{
   string accessToken = 1;
   int userId = 2;
   string name = 3;
-//  string twitter = 4;
   bool isAvailable = 4;
   bool isAnonymous = 5;
 }
