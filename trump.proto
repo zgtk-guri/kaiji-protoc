@@ -13,3 +13,7 @@ message TrumpCard{
   CardSuit suit = 0;
   int number = 1;
 }
+
+message TrumpCards{
+  repeated TrumpCard cards = 1;
+}
