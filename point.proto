@@ -4,7 +4,6 @@ package net.gurigoro.kaiji;
 
 service Point {
   rpc GetPointBalance (GetPointBalanceRequest) returns (GetUserReply);
-  rpc PayPointsForBetting (PayPointsForBettingRequest) returns (PayPointsForBettingReply);
 
 }
 
@@ -17,16 +16,4 @@ message GetPointBalanceReply{
   bool isSucceed = 1;
   int userId = 2;
   int pointBalance = 3;
-}
-
-message PayPointsForBettingRequest{
-  string accessToken = 1;
-  int userId = 2;
-  int betPoints = 3;
-}
-
-message PayPointsForBettingReply{
-  bool isSucceed = 1;
-  int userId = 2;
-  int paidPoints = 3;
 }
