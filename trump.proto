@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package net.gurigoro.kaiji;
+
+enum CardSuit {
+  SPADE = 0;
+  CLUB = 1;
+  HEART = 2;
+  DIAMOND = 3;
+}
+
+message TrumpCard{
+  CardSuit suit = 0;
+  int number = 1;
+}
