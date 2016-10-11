@@ -4,7 +4,7 @@ package net.gurigoro.kaiji;
 
 service Point {
   rpc GetPointBalance (GetPointBalanceRequest) returns (GetUserReply);
-
+  rpc AddPoint (AddPointRequest) returns (AddPointReply);
 }
 
 message GetPointBalanceRequest{
@@ -16,4 +16,18 @@ message GetPointBalanceReply{
   bool isSucceed = 1;
   int userId = 2;
   int pointBalance = 3;
+}
+
+message AddPointRequest{
+  string accessToken = 1;
+  int userId = 2;
+  int points = 3;
+  string reason = 4;
+}
+
+message AddPointReply{
+  bool isSucceed = 1;
+  int userId = 2;
+  int addedPoints = 3
+  int pointBalance = 4;
 }
