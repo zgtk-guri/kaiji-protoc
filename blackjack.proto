@@ -13,26 +13,26 @@ service BlackJack {
   rpc Stand (StandRequest) returns (StandReply);
   rpc Split (SplitRequest) returns (SplitReply);
   rpc DoubleDown (DoubleDownRequest) returns (DoubleDownReply);
-  rpc SetNextDealersCard (SetNextDealersCardRequest) returns (sStNextDealersCardReply);
+  rpc SetNextDealersCard (SetNextDealersCardRequest) returns (SetNextDealersCardReply);
   rpc GetGameResult (GetGameResultRequest) returns (GetGameResultReply);
   rpc DestroyGameRoom (DestroyGameRoomRequest) returns (DestroyGameRoomReply);
 }
 
 message CreateNewGameRoomRequest{
   string accessToken = 1;
-  repeated int usersId = 2;
+  repeated int64 usersId = 2;
 }
 
 message CreateNewGameRoomReply{
   bool isSucceed = 1;
-  int gameRoomId = 2;
+  int64 gameRoomId = 2;
 }
 
 message BettingRequest{
   string accessToken = 1;
-  int gameRoomId = 2;
-  int userId = 3;
-  int betPoints = 4;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
+  int64 betPoints = 4;
 }
 
 message BettingReply{
@@ -43,18 +43,18 @@ message BettingReply{
     UNKNOWN_FAILED = 3;
   }
   BettingResult result = 1;
-  int userId = 2;
+  int64 userId = 2;
 }
 
 message FirstDealPlayerCards{
-  int userId = 1;
+  int64 userId = 1;
   TrumpCards cards = 2;
 }
 
 message SetFirstDealedCardsRequest{
   string accessToken = 1;
-  int gameRoomId = 2;
-  repeated FirstDealPlayerCards = 3;
+  int64 gameRoomId = 2;
+  repeated FirstDealPlayerCards playerCards = 3;
 }
 
 enum PlayerAction {
@@ -66,8 +66,8 @@ enum PlayerAction {
 }
 
 message AllowedPlayerActions{
-  int userId = 1;
-  int cardPoints = 2;
+  int64 userId = 1;
+  int64 cardPoints = 2;
   repeated PlayerAction actions = 3;
 }
 
@@ -78,7 +78,7 @@ message SetFirstDealedCardsReply{
 
 message SetFirstDealersCardRequest{
   string accessToken = 1;
-  int gameRoomId = 2;
+  int64 gameRoomId = 2;
   TrumpCard card = 3;
 }
 
@@ -88,25 +88,25 @@ message SetFirstDealersCardReply{
 
 message HitRequest{
   string accessToken = 1;
-  int gameRoomId = 2;
-  int userId = 3;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
   TrumpCard card = 4;
-  int handsIndex = 5;
+  int64 handsIndex = 5;
 }
 
 message HitReply{
   bool isSucceed = 1;
-  int userId = 2;
+  int64 userId = 2;
   bool isBusted = 3;
-  int cardPoints = 4;
+  int64 cardPoints = 4;
   repeated PlayerAction allwedActions = 5;
 }
 
 message StandRequest{
   string accessToken = 1;
-  int gameRoomId = 2;
-  int userId = 3;
-  int handsIndex = 4;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
+  int64 handsIndex = 4;
 }
 
 message StandReply{
@@ -115,8 +115,8 @@ message StandReply{
 
 message SplitRequest{
   string accessToken = 1;
-  int gameRoomId = 2;
-  int userId = 3;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
 }
 
 message SplitReply{
@@ -125,45 +125,45 @@ message SplitReply{
 
 message DoubleDownRequest{
   string accessToken = 1;
-  int gameRoomId = 2;
-  int userId = 3;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
 }
 
 message DoubleDownReply{
   bool isSucceed = 1;
-  int userId = 2;
+  int64 userId = 2;
   bool isBusted = 3;
-  int cardPoints = 4;
+  int64 cardPoints = 4;
 }
 
 message SetNextDealersCardRequest{
   string accessToken = 1;
-  int gameRoomId = 2;
+  int64 gameRoomId = 2;
   TrumpCard card = 3;
 }
 
 message SetNextDealersCardReply{
   bool isSucceed = 1;
-  int cardPoints = 2;
+  int64 cardPoints = 2;
   bool shouldHit = 3;
   bool isBusted = 4;
 }
 
 message GetGameResultRequest{
   string accessToken = 1;
-  int gameRoomId = 2;
+  int64 gameRoomId = 2;
 }
 
-message PlayerResult[
-  int userId = 1;
+message PlayerResult{
+  int64 userId = 1;
   enum GameResult {
     LOSE = 0;
     TIE = 1;
     WIN = 2;
   }
-  GameResult GameResult = 2;
-  int gotPoints = 3;
-]
+  GameResult gameResult = 2;
+  int64 gotPoints = 3;
+}
 
 message GetGameResultReply{
   bool isSucceed = 1;
@@ -172,7 +172,7 @@ message GetGameResultReply{
 
 message DestroyGameRoomRequest{
   string accessToken = 1;
-  int gameRoomId = 2;
+  int64 gameRoomId = 2;
 }
 
 message DestroyGameRoomReply{
