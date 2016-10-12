@@ -18,20 +18,20 @@ service Kaiji{
 }
 
 enum LoginStatus {
-  NONE = 0;
-  OFFLINE = 1;
-  ONLINE = 2;
-  GAMING = 3;
-  ERROR = 4;
+  LOGIN_NONE = 0;
+  LOGIN_OFFLINE = 1;
+  LOGIN_ONLINE = 2;
+  LOGIN_GAMING = 3;
+  LOGIN_ERROR = 4;
 }
 
 enum LogLevel{
-  TRACE = 0;
-  DEBUG = 2;
-  INFO = 3;
-  WARN = 4;
-  ERROR = 5;
-  FATAL = 6;
+  LOG_TRACE = 0;
+  LOG_DEBUG = 1;
+  LOG_INFO = 2;
+  LOG_WARN = 3;
+  LOG_ERROR = 4;
+  LOG_FATAL = 5;
 }
 
 message ClientLoginRequest{
@@ -73,9 +73,9 @@ message PingReply{
 
 message LogRequest{
   string accessKey = 1;
-  int unixTime = 2;
+  int64 unixTime = 2;
   LogLevel LogLevel = 3;
-  int userId = 4;
+  int64 userId = 4;
   string text = 5;
 }
 
@@ -85,22 +85,22 @@ message Empty{
 
 message GetUserByIdRequest{
   string accessToken = 1;
-  int userId = 2;
+  int64 userId = 2;
 }
 
 message GetUserReply{
   bool isFound = 1;
-  int userId = 2;
+  int64 userId = 2;
   string name = 3;
-  int coin = 4;
+  int64 coin = 4;
   bool isAvailable = 5;
   bool isAnonymous = 6;
-  int continueCount = 7;
+  int64 continueCount = 7;
 }
 
 message AddUserRequest{
   string accessToken = 1;
-  int userId = 2;
+  int64 userId = 2;
   string name = 3;
   bool isAvailable = 4;
   bool isAnonymous = 5;
@@ -108,12 +108,12 @@ message AddUserRequest{
 
 message AddUserReply{
   bool isSucceed = 1;
-  int userId = 2;
+  int64 userId = 2;
 }
 
 message ModifyUserRequest{
   string accessToken = 1;
-  int userId = 2;
+  int64 userId = 2;
   string name = 3;
   bool isAvailable = 4;
   bool isAnonymous = 5;
@@ -121,5 +121,5 @@ message ModifyUserRequest{
 
 message ModifyUserReply{
   bool isSucceed = 1;
-  int userId = 2;
+  int64 userId = 2;
 }
