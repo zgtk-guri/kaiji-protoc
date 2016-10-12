@@ -1,0 +1,180 @@
+syntax = "proto3";
+
+package net.gurigoro.kaiji;
+
+import "trump.proto";
+
+service BlackJack {
+  rpc CreateNewGameRoom (CreateNewGameRoomRequest) returns (CreateNewGameRoomReply);
+  rpc Betting (BettingRequest) returns (BettingReply);
+  rpc SetFirstDealedCards (SetFirstDealedCardsRequest) returns (SetFirstDealedCardsReply);
+  rpc SetFirstDealersCard (SetFirstDealersCardRequest) returns (SetFirstDealersCardReply);
+  rpc Hit (HitRequest) returns (HitReply);
+  rpc Stand (StandRequest) returns (StandReply);
+  rpc Split (SplitRequest) returns (SplitReply);
+  rpc DoubleDown (DoubleDownRequest) returns (DoubleDownReply);
+  rpc SetNextDealersCard (SetNextDealersCardRequest) returns (sStNextDealersCardReply);
+  rpc GetGameResult (GetGameResultRequest) returns (GetGameResultReply);
+  rpc DestroyGameRoom (DestroyGameRoomRequest) returns (DestroyGameRoomReply);
+}
+
+message CreateNewGameRoomRequest{
+  string accessToken = 1;
+  repeated int usersId = 2;
+}
+
+message CreateNewGameRoomReply{
+  bool isSucceed = 1;
+  int gameRoomId = 2;
+}
+
+message BettingRequest{
+  string accessToken = 1;
+  int gameRoomId = 2;
+  int userId = 3;
+  int betPoints = 4;
+}
+
+message BettingReply{
+  enum BettingResult {
+    SUCCEED = 0;
+    NO_ENOUGH_POINTS = 1;
+    ALREADY_BETTED = 2;
+    UNKNOWN_FAILED = 3;
+  }
+  BettingResult result = 1;
+  int userId = 2;
+}
+
+message FirstDealPlayerCards{
+  int userId = 1;
+  TrumpCards cards = 2;
+}
+
+message SetFirstDealedCardsRequest{
+  string accessToken = 1;
+  int gameRoomId = 2;
+  repeated FirstDealPlayerCards = 3;
+}
+
+enum PlayerAction {
+  UNKNOWN = 0;
+  HIT = 1;
+  STAND = 2;
+  SPLIT = 3;
+  DOUBLEDOWN = 4;
+}
+
+message AllowedPlayerActions{
+  int userId = 1;
+  int cardPoints = 2;
+  repeated PlayerAction actions = 3;
+}
+
+message SetFirstDealedCardsReply{
+  bool isSucceed = 1;
+  repeated AllowedPlayerActions actions = 2;
+}
+
+message SetFirstDealersCardRequest{
+  string accessToken = 1;
+  int gameRoomId = 2;
+  TrumpCard card = 3;
+}
+
+message SetFirstDealersCardReply{
+  bool isSucceed = 1;
+}
+
+message HitRequest{
+  string accessToken = 1;
+  int gameRoomId = 2;
+  int userId = 3;
+  TrumpCard card = 4;
+  int handsIndex = 5;
+}
+
+message HitReply{
+  bool isSucceed = 1;
+  int userId = 2;
+  bool isBusted = 3;
+  int cardPoints = 4;
+  repeated PlayerAction allwedActions = 5;
+}
+
+message StandRequest{
+  string accessToken = 1;
+  int gameRoomId = 2;
+  int userId = 3;
+  int handsIndex = 4;
+}
+
+message StandReply{
+  bool isSucceed = 1;
+}
+
+message SplitRequest{
+  string accessToken = 1;
+  int gameRoomId = 2;
+  int userId = 3;
+}
+
+message SplitReply{
+  bool isSucceed = 1;
+}
+
+message DoubleDownRequest{
+  string accessToken = 1;
+  int gameRoomId = 2;
+  int userId = 3;
+}
+
+message DoubleDownReply{
+  bool isSucceed = 1;
+  int userId = 2;
+  bool isBusted = 3;
+  int cardPoints = 4;
+}
+
+message SetNextDealersCardRequest{
+  string accessToken = 1;
+  int gameRoomId = 2;
+  TrumpCard card = 3;
+}
+
+message SetNextDealersCardReply{
+  bool isSucceed = 1;
+  int cardPoints = 2;
+  bool shouldHit = 3;
+  bool isBusted = 4;
+}
+
+message GetGameResultRequest{
+  string accessToken = 1;
+  int gameRoomId = 2;
+}
+
+message PlayerResult[
+  int userId = 1;
+  enum GameResult {
+    LOSE = 0;
+    TIE = 1;
+    WIN = 2;
+  }
+  GameResult GameResult = 2;
+  int gotPoints = 3;
+]
+
+message GetGameResultReply{
+  bool isSucceed = 1;
+  repeated PlayerResult playerResults = 2;
+}
+
+message DestroyGameRoomRequest{
+  string accessToken = 1;
+  int gameRoomId = 2;
+}
+
+message DestroyGameRoomReply{
+  bool isSucceed = 1;
+}
