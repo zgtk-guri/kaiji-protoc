@@ -3,31 +3,31 @@ syntax = "proto3";
 package net.gurigoro.kaiji;
 
 service Point {
-  rpc GetPointBalance (GetPointBalanceRequest) returns (GetUserReply);
+  rpc GetPointBalance (GetPointBalanceRequest) returns (GetPointBalanceReply);
   rpc AddPoint (AddPointRequest) returns (AddPointReply);
 }
 
 message GetPointBalanceRequest{
   string accessToken = 1;
-  int userId = 2;
+  int64 userId = 2;
 }
 
 message GetPointBalanceReply{
   bool isSucceed = 1;
-  int userId = 2;
-  int pointBalance = 3;
+  int64 userId = 2;
+  int64 pointBalance = 3;
 }
 
 message AddPointRequest{
   string accessToken = 1;
-  int userId = 2;
-  int points = 3;
+  int64 userId = 2;
+  int64 points = 3;
   string reason = 4;
 }
 
 message AddPointReply{
   bool isSucceed = 1;
-  int userId = 2;
-  int addedPoints = 3
-  int pointBalance = 4;
+  int64 userId = 2;
+  int64 addedPoints = 3;
+  int64 pointBalance = 4;
 }
