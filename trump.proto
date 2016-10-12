@@ -10,8 +10,8 @@ enum CardSuit {
 }
 
 message TrumpCard{
-  CardSuit suit = 0;
-  int number = 1;
+  CardSuit suit = 1;
+  int64 number = 2;
 }
 
 message TrumpCards{
