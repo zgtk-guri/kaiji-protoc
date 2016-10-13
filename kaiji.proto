@@ -92,7 +92,7 @@ message GetUserReply{
   bool isFound = 1;
   int64 userId = 2;
   string name = 3;
-  int64 coin = 4;
+  int64 point = 4;
   bool isAvailable = 5;
   bool isAnonymous = 6;
   int64 continueCount = 7;
