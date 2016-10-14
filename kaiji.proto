@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package net.gurigoro.kaiji;
+option java_outer_classname = "KaijiOuterClass";
 
 service Kaiji{
   // Ping
