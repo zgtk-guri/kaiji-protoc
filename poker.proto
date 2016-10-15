@@ -78,7 +78,7 @@ message CallRequest{
 }
 
 message CallReply{
-  BettingResult result = 2;
+  BettingResult result = 1;
   int64 userId = 2;
   repeated PlayerAction nextPlayersAvailableActions = 4;
 }
