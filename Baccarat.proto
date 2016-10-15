@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package net.gurigoro.kaiji.baccarat;
+option java_outer_classname = "BaccaratOuterClass";
+
+service Baccarat {
+  rpc CreateNewGameRoom (CreateNewGameRoomRequest) returns (CreateNewGameRoomReply);
+  rpc Bet (BetRequest) returns (BetReply);
+  rpc StartOpeningCards (StartOpeningCardsRequest) returns (StartOpeningCardsReply);
+  rpc GetGameResult (GetGameResultRequest) returns (GetGameResultReply);
+  rpc DestroyGameRoom (DestroyGameRoomRequest) returns (DestroyGameRoomReply);
+}
+
+
+enum BetSide {
+  PLAYER = 0;
+  BANKER = 1;
+  TIE = 2;
+}
+
+enum BettingResult {
+  SUCCEED = 0;
+  NO_ENOUGH_POINTS = 1;
+  UNKNOWN_FAILED = 2;
+}
+
+message CreateNewGameRoomRequest{
+  string accessToken = 1;
+  repeated int64 usersId = 2;
+}
+
+message CreateNewGameRoomReply{
+  bool isSucceed = 1;
+  int64 gameRoomId = 2;
+}
+
+message BetRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
+  int64 betPoints = 4;
+  BetSide bettingSide = 5;
+}
+
+message BetReply{
+  BettingResult result = 1;
+  int64 userId = 2;
+}
+
+
+message StartOpeningCardsRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+}
+
+message StartOpeningCardsReply{
+  enum StartOpeningCardsResult {
+    SUCCEED = 0;
+    NOT_ALL_USERS_BETTED_YET = 1;
+    UNKNOWN_FAILED = 2;
+  }
+  StartOpeningCardsResult result = 1;
+  BetSide wonSide = 2;
+}
+
+message GetGameResultRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+}
+
+message PlayerResult{
+  int64 userId = 1;
+  enum GameResult {
+    LOSE = 0;
+    WIN = 1;
+    WIN_WITH_BETTING_TIE = 2;
+  }
+  GameResult gameResult = 2;
+  int64 gotPoints = 3;
+}
+
+message GetGameResultReply{
+  enum GetGameRequestResult {
+    SUCCEED = 0;
+    NOT_OPENED_CARDS_YET = 1;
+    UNKNOWN_FAILED = 2;
+  }
+  GetGameRequestResult result = 1;
+  repeated PlayerResult playerResults = 2;
+}
+
+message DestroyGameRoomRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+}
+
+message DestroyGameRoomReply{
+  bool isSucceed = 1;
+}
