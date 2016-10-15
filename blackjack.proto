@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package net.gurigoro.kaiji;
+package net.gurigoro.kaiji.blackjack;
 option java_outer_classname = "BlackJackOuterClass";
 
 import "trump.proto";
