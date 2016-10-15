@@ -1,0 +1,163 @@
+syntax = "proto3";
+
+package net.gurigoro.kaiji.poker;
+option java_outer_classname = "PokerOuterClass";
+
+import "trump.proto";
+
+service Poker {
+  rpc CreateNewGameRoom (CreateNewGameRoomRequest) returns (CreateNewGameRoomReply);
+  rpc Bet (BetRequest) returns (BetReply);
+  rpc Call (CallRequest) returns (CallReply);
+  rpc Raise (RaiseRequest) returns (RaiseReply);
+  rpc Check (CheckRequest) returns (CheckReply);
+  rpc Fold (FoldRequest) returns (FoldReply);
+  rpc SetPlayersCards (SetPlayersCardsRequest) returns (SetPlayersCardsReply);
+  rpc GetGameResult (GetGameResultRequest) returns (GetGameResultReply);
+  rpc DestroyGameRoom (DestroyGameRoomRequest) returns (DestroyGameRoomReply);
+}
+
+enum PlayerAction {
+  NONE = 0;
+  BET = 1;
+  CALL = 2;
+  RAISE = 3;
+  CHECK = 4;
+  FOLD = 5;
+  OPEN_CARDS = 6;
+}
+
+enum BettingResult {
+  SUCCEED = 0;
+  NO_ENOUGH_POINTS = 1;
+  NOT_ENOUGH_TO_RAISE = 2;
+  UNKNOWN_FAILED = 3;
+}
+
+enum PokerHand {
+  UNKNOWN = 0;
+  HIGH_CARDS = 1;
+  ONE_PAIR = 2;
+  TWO_PAIRS = 3;
+  THREE_OF_A_KIND = 4;
+  STRAIGHT = 5;
+  FLUSH = 6;
+  FULL_HOUSE = 7;
+  FOUR_OF_A_KIND = 8;
+  STRAIGHT_FLUSH = 9;
+  ROYAL_STRAIGHT_FLUSH = 10;
+}
+
+message CreateNewGameRoomRequest{
+  string accessToken = 1;
+  repeated int64 usersId = 2;
+}
+
+message CreateNewGameRoomReply{
+  bool isSucceed = 1;
+  int64 gameRoomId = 2;
+}
+
+message BetRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
+  int64 betPoints = 4;
+}
+
+message BetReply{
+  BettingResult result = 1;
+  int64 userId = 2;
+  repeated PlayerAction nextPlayersAvailableActions = 3;
+}
+
+message CallRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
+}
+
+message CallReply{
+  BettingResult result = 2;
+  int64 userId = 2;
+  repeated PlayerAction nextPlayersAvailableActions = 4;
+}
+
+message RaiseRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
+  int64 betPoints = 4;
+}
+
+message RaiseReply{
+    BettingResult result = 1;
+    int64 userId = 2;
+    repeated PlayerAction nextPlayersAvailableActions = 3;
+}
+
+message CheckRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
+}
+
+message CheckReply{
+  bool isSucceed = 1;
+  repeated PlayerAction nextPlayersAvailableActions = 4;
+}
+
+message FoldRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
+}
+
+message FoldReply{
+  bool isSucceed = 1;
+  int64 userId = 2;
+  repeated PlayerAction nextPlayersAvailableActions = 3;
+}
+
+message SetPlayersCardsRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+  int64 userId = 3;
+  TrumpCards playerCards = 4;
+}
+
+message SetPlayersCardsReply{
+  bool isSucceed = 1;
+  int64 userId = 2;
+  PokerHand hand = 3;
+}
+
+message GetGameResultRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+}
+
+message PlayerResult{
+  int64 userId = 1;
+  enum GameResult {
+    LOSE = 0;
+    TIE = 1;
+    WIN = 2;
+  }
+  GameResult gameResult = 2;
+  int64 gotPoints = 3;
+}
+
+message GetGameResultReply{
+  bool isSucceed = 1;
+  repeated PlayerResult playerResults = 2;
+}
+
+message DestroyGameRoomRequest{
+  string accessToken = 1;
+  int64 gameRoomId = 2;
+}
+
+message DestroyGameRoomReply{
+  bool isSucceed = 1;
+}
