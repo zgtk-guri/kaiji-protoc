@@ -100,7 +100,7 @@ message HitReply{
   int64 userId = 2;
   bool isBusted = 3;
   int64 cardPoints = 4;
-  repeated PlayerAction allwedActions = 5;
+  repeated PlayerAction allowedActions = 5;
 }
 
 message StandRequest{
