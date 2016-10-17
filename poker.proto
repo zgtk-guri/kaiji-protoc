@@ -79,6 +79,7 @@ message RaiseReply{
     BettingResult result = 1;
     int64 userId = 2;
     repeated PlayerAction nextPlayersAvailableActions = 3;
+    int64 fieldBetPoints = 4;
 }
 
 message CheckRequest{
