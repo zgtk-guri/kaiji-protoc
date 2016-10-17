@@ -7,7 +7,6 @@ import "trump.proto";
 
 service Poker {
   rpc CreateNewGameRoom (CreateNewGameRoomRequest) returns (CreateNewGameRoomReply);
-  rpc Bet (BetRequest) returns (BetReply);
   rpc Call (CallRequest) returns (CallReply);
   rpc Raise (RaiseRequest) returns (RaiseReply);
   rpc Check (CheckRequest) returns (CheckReply);
@@ -56,19 +55,6 @@ message CreateNewGameRoomRequest{
 message CreateNewGameRoomReply{
   bool isSucceed = 1;
   int64 gameRoomId = 2;
-}
-
-message BetRequest{
-  string accessToken = 1;
-  int64 gameRoomId = 2;
-  int64 userId = 3;
-  int64 betPoints = 4;
-}
-
-message BetReply{
-  BettingResult result = 1;
-  int64 userId = 2;
-  repeated PlayerAction nextPlayersAvailableActions = 3;
 }
 
 message CallRequest{
