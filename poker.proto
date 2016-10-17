@@ -19,9 +19,7 @@ enum PlayerAction {
   NONE = 0;
   CALL = 2;
   RAISE = 3;
-  CHECK = 4;
   FOLD = 5;
-  OPEN_CARDS = 6;
 }
 
 enum BettingResult {
