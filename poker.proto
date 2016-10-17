@@ -18,7 +18,6 @@ service Poker {
 
 enum PlayerAction {
   NONE = 0;
-  BET = 1;
   CALL = 2;
   RAISE = 3;
   CHECK = 4;
