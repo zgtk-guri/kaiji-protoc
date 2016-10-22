@@ -73,7 +73,7 @@ message PlayerResult{
   enum GameResult {
     LOSE = 0;
     WIN = 1;
-    WIN_WITH_BETTING_TIE = 2;
+    TIE = 2;
   }
   GameResult gameResult = 2;
   int64 gotPoints = 3;
