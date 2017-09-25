@@ -4,10 +4,6 @@ package net.gurigoro.kaiji;
 option java_outer_classname = "KaijiOuterClass";
 
 service Kaiji{
-  // Ping
-  rpc Ping (PingRequest) returns (PingReply);
-  // Logging
-  rpc Log (LogRequest) returns (Empty);
   // Users
   rpc GetUserById (GetUserByIdRequest) returns (GetUserReply);
   rpc AddUser (AddUserRequest) returns (AddUserReply);
@@ -22,29 +18,6 @@ enum LogLevel{
   LOG_WARN = 3;
   LOG_ERROR = 4;
   LOG_FATAL = 5;
-}
-
-
-message PingRequest{
-  string message = 1;
-  int64 time = 2;
-}
-
-message PingReply{
-  string message = 1;
-  int64 time = 2;
-}
-
-message LogRequest{
-  string accessToken = 1;
-  int64 unixTime = 2;
-  LogLevel LogLevel = 3;
-  int64 userId = 4;
-  string text = 5;
-}
-
-message Empty{
-  // Empty
 }
 
 message GetUserByIdRequest{
