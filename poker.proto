@@ -3,16 +3,13 @@ syntax = "proto3";
 package net.gurigoro.kaiji.poker;
 option java_outer_classname = "PokerOuterClass";
 
-import "trump.proto";
-
 service Poker {
   rpc CreateNewGameRoom (CreateNewGameRoomRequest) returns (CreateNewGameRoomReply);
   rpc Call (CallRequest) returns (CallReply);
   rpc Raise (RaiseRequest) returns (RaiseReply);
   rpc Check (CheckRequest) returns (CheckReply);
   rpc Fold (FoldRequest) returns (FoldReply);
-  rpc SetPlayersCards (SetPlayersCardsRequest) returns (SetPlayersCardsReply);
-  rpc GetGameResult (GetGameResultRequest) returns (GetGameResultReply);
+  rpc SetWinner (SetWinnerRequest) returns (SetWinnerReply);
   rpc DestroyGameRoom (DestroyGameRoomRequest) returns (DestroyGameRoomReply);
 }
 
@@ -30,20 +27,6 @@ enum BettingResult {
   NO_ENOUGH_POINTS = 1;
   NOT_ENOUGH_TO_RAISE = 2;
   UNKNOWN_FAILED = 3;
-}
-
-enum PokerHand {
-  UNKNOWN = 0;
-  HIGH_CARDS = 1;
-  ONE_PAIR = 2;
-  TWO_PAIRS = 3;
-  THREE_OF_A_KIND = 4;
-  STRAIGHT = 5;
-  FLUSH = 6;
-  FULL_HOUSE = 7;
-  FOUR_OF_A_KIND = 8;
-  STRAIGHT_FLUSH = 9;
-  ROYAL_STRAIGHT_FLUSH = 10;
 }
 
 message CreateNewGameRoomRequest{
@@ -77,10 +60,10 @@ message RaiseRequest{
 }
 
 message RaiseReply{
-    BettingResult result = 1;
-    int64 userId = 2;
-    repeated PlayerAction nextPlayersAvailableActions = 3;
-    int64 fieldBetPoints = 4;
+  BettingResult result = 1;
+  int64 userId = 2;
+  repeated PlayerAction nextPlayersAvailableActions = 3;
+  int64 fieldBetPoints = 4;
 }
 
 message CheckRequest{
@@ -106,38 +89,19 @@ message FoldReply{
   repeated PlayerAction nextPlayersAvailableActions = 3;
 }
 
-message SetPlayersCardsRequest{
+message SetWinnerRequest{
   string accessToken = 1;
-  int64 gameRoomId = 2;
-  int64 userId = 3;
-  TrumpCards playerCards = 4;
+  int64 winnerUserId = 2;
 }
 
-message SetPlayersCardsReply{
-  bool isSucceed = 1;
-  int64 userId = 2;
-  PokerHand hand = 3;
-}
-
-message GetGameResultRequest{
-  string accessToken = 1;
-  int64 gameRoomId = 2;
-}
-
-message PlayerResult{
+message PlayersPoint{
   int64 userId = 1;
-  enum GameResult {
-    LOSE = 0;
-    TIE = 1;
-    WIN = 2;
-  }
-  GameResult gameResult = 2;
-  int64 gotPoints = 3;
+  int64 gotPoints = 2;
 }
 
-message GetGameResultReply{
+message SetWinnerReply{
   bool isSucceed = 1;
-  repeated PlayerResult playerResults = 2;
+  repeated PlayersPoints playersPoints = 2;
 }
 
 message DestroyGameRoomRequest{
