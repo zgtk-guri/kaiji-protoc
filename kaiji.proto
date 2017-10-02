@@ -31,6 +31,7 @@ message AddUserRequest{
   string name = 3;
   bool isAvailable = 4;
   bool isAnonymous = 5;
+  bool autoAssginUserId = 6;
 }
 
 message AddUserReply{
