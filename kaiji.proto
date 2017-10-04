@@ -8,6 +8,9 @@ service Kaiji{
   rpc GetUserById (GetUserByIdRequest) returns (GetUserReply);
   rpc AddUser (AddUserRequest) returns (AddUserReply);
   rpc ModifyUser (ModifyUserRequest) returns (AddUserReply);
+  // Events
+  rpc ApplyEvent (ApplyEventRequest) returns (ApplyEventReply);
+  rpc GetAllEvents (GetAllEventsRequest) returns (GetAllEventsReply);
 }
 
 message GetUserByIdRequest{
@@ -50,4 +53,42 @@ message ModifyUserRequest{
 message ModifyUserReply{
   bool isSucceed = 1;
   int64 userId = 2;
+}
+
+enum Games {
+  ALL = 0;
+  POKER = 1;
+  BLACKJACK = 2;
+  BACCARAT = 3;
+  ROULETTE = 4;
+  SLOT = 5;
+}
+
+enum Events {
+  NONE = 0;
+  // TODO: add some events
+}
+
+message ApplyEventRequest{
+  string accessToken = 1;
+  Games game = 2;
+  Events event = 3;
+}
+
+message ApplyEventReply{
+  bool isSucceed = 1;
+}
+
+message GetAllEventsRequest{
+  string accessToken = 1;
+}
+
+message EventRecord{
+  Games game = 1;
+  Events event = 2;
+}
+
+message GetAllEventsReply{
+  bool isSucceed = 1;
+  repeated EventRecord eventRecords = 2;
 }
