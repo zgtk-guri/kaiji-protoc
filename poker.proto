@@ -101,7 +101,7 @@ message PlayersPoint{
 
 message SetWinnerReply{
   bool isSucceed = 1;
-  repeated PlayersPoints playersPoints = 2;
+  repeated PlayersPoint playersPoints = 2;
 }
 
 message DestroyGameRoomRequest{
